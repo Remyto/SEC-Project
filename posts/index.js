@@ -1,14 +1,17 @@
 const express = require("express");
-const randomBytes = require("crypto");
+const crypto = require("crypto");
 const bodyParser = require("body-parser");
+const cors = require("cors");
+const { access } = require("fs");
 
 const PORT = 4000;
-
-const app = express();
-app.use(bodyParser.json());
 // Store the posts in memory
 // TODO: Store the posts in a database
 const posts = {};
+
+const app = express();
+app.use(bodyParser.json());
+app.use(cors());  // Set up CORS middleware
 
 /// Routes
 app.get("/posts", (req, res) => {
@@ -16,7 +19,7 @@ app.get("/posts", (req, res) => {
 });
 
 app.post("/posts", (req, res) => {
-  const id = randomBytes(4).toString("hex");
+  const id = crypto.randomBytes(4).toString("hex");
   const title = req.body;
 
   /// Create the post
@@ -33,5 +36,5 @@ app.post("/posts", (req, res) => {
 
 /// Listen
 app.listen(PORT, () => {
-  console.log(`Listening on port ; ${PORT}`);
+  console.log(`Listening on port ${PORT}`);
 });

@@ -10,7 +10,7 @@ export default () => {
     event.preventDefault();
 
     /// Make a request to the posts service : PORT 4000
-    await axios.post("https://localhost:4000/posts", {
+    await axios.post("http://localhost:4000/posts", {
       title,
     });
 

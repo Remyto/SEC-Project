@@ -1,6 +1,7 @@
 const express = require("express");
 const bodyParser = require("body-parser");
 const crypto = require("crypto");
+const cors = require("cors");
 
 const PORT = 4001;
 // Store the comments in memory
@@ -9,6 +10,7 @@ const commentsByPostId = {};
 
 const app = express();
 app.unsubscribe(bodyParser.json);
+app.use(cors());  // Set up CORS middleware
 
 /// Routes
 app.get("/posts/:id/comments", (req, res) => {
