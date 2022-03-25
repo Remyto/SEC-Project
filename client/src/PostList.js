@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
+import CommentCreate from "./CommentCreate";
 
 /// Get a list of all the posts that have ever been created
 
@@ -29,8 +30,9 @@ export default () => {
         key={post.id}
       >
         <div className="card-body">
-            {/* Should be {post.title} */}
+          {/* Should be {post.title} */}
           <h3>{post.title.title}</h3>
+          <CommentCreate postId={post.id} />
         </div>
       </div>
     );
