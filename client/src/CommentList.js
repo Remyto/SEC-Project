@@ -1,25 +1,9 @@
-import React, { useState, useEffect } from "react";
-import axios from "axios";
+import React from "react";
 
 /// Get list of comments for a specific post
 
 // eslint-disable-next-line import/no-anonymous-default-export
-export default ({ postId }) => {
-  const [comments, setComments] = useState([]);
-
-  const fetchData = async () => {
-    /// Make request to Comments microservice
-    const res = await axios.get(
-      `http://localhost:4001/posts/${postId}/comments`
-    );
-
-    setComments(res.data);
-  };
-
-  useEffect(() => {
-    fetchData();
-  }, []); // Empty array so that useEffect only runs the function once
-
+export default ({ comments }) => {
   const renderedComments = comments.map((comment) => {
     // console.log(comment);
     /* Should display comment.content instead */

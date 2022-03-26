@@ -12,7 +12,7 @@ export default () => {
 
   const fetchPosts = async () => {
     /// Request to the posts service
-    const res = await axios.get("http://localhost:4000/posts");
+    const res = await axios.get("http://localhost:4002/posts");
 
     setPosts(res.data);
   };
@@ -33,7 +33,7 @@ export default () => {
         <div className="card-body">
           {/* Should be {post.title} */}
           <h3>{post.title.title}</h3>
-          <CommentList postId={post.id}/>
+          <CommentList comments={post.comments} />
           <CommentCreate postId={post.id} />
         </div>
       </div>
