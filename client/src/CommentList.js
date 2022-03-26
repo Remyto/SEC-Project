@@ -21,7 +21,7 @@ export default ({ postId }) => {
   }, []); // Empty array so that useEffect only runs the function once
 
   const renderedComments = comments.map((comment) => {
-    console.log(comment);
+    // console.log(comment);
     /* Should display comment.content instead */
     return <li key={comment.id}>{comment.id}</li>;
   });

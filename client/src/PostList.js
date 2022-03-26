@@ -21,7 +21,7 @@ export default () => {
     fetchPosts();
   }, []); // Empty arrray so that useEffect only runs the function once
 
-  console.log(posts);
+  // console.log(posts);
 
   const renderedPosts = Object.values(posts).map((post) => {
     return (
