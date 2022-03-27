@@ -26,24 +26,49 @@ app.post("/posts/:id/comments", async (req, res) => {
   /// Comment(s) allready associated to this post ? array of comments : []
   const comments = commentsByPostId[req.params.id] || [];
 
-  comments.push({ id: commentId, content: content });
+  // By default a new comment is of status 'pending'
+  comments.push({ id: commentId, content: content, status: "pending" });
   commentsByPostId[req.params.id] = comments;
 
+  /// Create 'CommentCreated' event
   await axios.post(`http://localhost:4005/events`, {
     type: "CommentCreated",
     data: {
       id: commentId,
       content,
       postId: req.params.id,
+      status: "pending",
     },
   });
 
   res.status(201).send(comments);
 });
 
-app.post("/events", (req, res) => {
+app.post("/events", async (req, res) => {
+  const { type, data } = req.body;
+
   // console.log("Event received",req.body.type);
-  console.log("Event received",'CommentCreate');
+  console.log("Event received", "CommentCreate");
+
+  if (type === "CommentModerated") {
+    const { postId, id, status, content } = data;
+    const comments = commentsByPostId[postId];
+
+    const comment = comments.find((comment) => {
+      return comment.id === id;
+    });
+    comment.status = status;
+
+    // await axios.post("http://localhost:4005/events", {
+    //   type: "CommentUpdated",
+    //   data: {
+    //     id,
+    //     status,
+    //     postId,
+    //     content
+    //   }
+    // })
+  }
 
   res.send({});
 });
