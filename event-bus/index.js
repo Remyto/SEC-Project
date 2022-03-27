@@ -12,7 +12,7 @@ app.post("/events", (req, res) => {
 
   // Make post requests to other services, passing event as data
   axios.post(`http://posts-clusterip-srv:4000/events`, event);
-  //axios.post(`http://localhost:4001/events`, event);
+  axios.post(`http://comments-srv:4001/events`, event);
   //axios.post(`http://localhost:4002/events`, event);
 
   res.send({ status: "OK" });
